@@ -1,0 +1,9 @@
+# OS
+.DS_STORE
+*.swp
+*~
+[Dd]esktop.ini
+Thumbs.db
+
+# IDE
+/.idea/

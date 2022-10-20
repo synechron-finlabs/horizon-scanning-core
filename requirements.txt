@@ -1,0 +1,3 @@
+bs4==4.8.0
+feedparser==6.0.8
+dateutil==2.8.1
