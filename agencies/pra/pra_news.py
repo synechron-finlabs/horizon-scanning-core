@@ -41,7 +41,8 @@ class scanning_notice:
                 
             
         except Exception as ex:
-            return {"pra_news":data_list}
+            print(ex)
+        return {"pra_news":data_list}
             
 
 

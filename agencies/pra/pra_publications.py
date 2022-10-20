@@ -43,10 +43,8 @@ class scanning_notice:
                 data_list.append(topic_data)
                 
             
-        except Exception as ex:
-
-            
-            print('Inside pra Exception')
+        except Exception as ex:            
+            print(ex)
 
         return {"pra_publications":data_list}
             

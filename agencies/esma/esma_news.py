@@ -156,4 +156,5 @@ class scanning_notice:
                 break
            
         except Exception as ex:
-            return {"esma_news":news_list}
+            print(ex)
+        return {"esma_news":news_list}

@@ -150,5 +150,6 @@ class scanning_notice:
                 page_no = page_no + 1
                 break
         except Exception as ex:
-            new_value = {'error': str(ex), 'status': "Failed"}
+            
+            print(ex)
         return {"esma_consultation":consultation_list}

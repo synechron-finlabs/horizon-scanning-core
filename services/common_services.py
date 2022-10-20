@@ -11,7 +11,7 @@ import os
 CLEANR = re.compile('<.*?>')
 class common_functions :
     def __init__(self):
-        self.user_id=1
+        pass
 
     def cleanhtml(self,raw_html):
         cleantext = re.sub(CLEANR, '', raw_html)
@@ -31,12 +31,12 @@ class common_functions :
 
 
     def fetch_rss(self,url):
-        #url="http://feeds.finra.org/news-and-events/feed"
+        
         feed = feedparser.parse(url)
         feed_entries = feed.entries
         feed_list = []
         feed_dict = {}
-        i = 0
+        
 
         for feed in feed_entries:
             link_text = ""
@@ -55,7 +55,7 @@ class common_functions :
             feed_dict['details'] = ""
             feed_dict['topics'] = []
             feed_list.append(feed_dict)
-            i = i + 1
+            
         return feed_list
 
 

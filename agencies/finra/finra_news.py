@@ -25,7 +25,7 @@ class scanning_notice:
             
             rss_data_list=obj_com.fetch_rss(url)         
             
-
+            
             for rss_data in rss_data_list:
                 topic_data={}
                 topic_data=rss_data
@@ -35,7 +35,8 @@ class scanning_notice:
                     pub_date=rss_data["published_date"]
                     
                     if pub_date < last_scan_date:
-                        break
+                        break                 
+                  
 
                     details_link = rss_data["link"]
 
@@ -48,7 +49,9 @@ class scanning_notice:
 
             
         except Exception as ex:
-            return {"finra_news":rss_list}
+            print(ex)
+            
+        return {"finra_news":rss_list}
 
     def fetch_details(self,url):
         link_text=""

@@ -21,7 +21,7 @@ class scanning_notice:
             
             last_scan_date=obj_com.extract_month_date(no_month)
 
-            rss_data_list=obj_com.fetch_rss(url)       
+            rss_data_list=obj_com.fetch_rss(url)      
             
 
             for rss_data in rss_data_list:
@@ -47,7 +47,8 @@ class scanning_notice:
 
             
         except Exception as ex:
-            return {"finra_rules":rss_list}
+            print(ex)
+        return {"finra_rules":rss_list}
 
     def fetch_details(self,url):
         link_text=""

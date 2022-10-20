@@ -13,11 +13,8 @@ class scanning_notice:
 
     def start_scanning(self, page_url):
         page_no = 0
-        go_ahead_flag = True
-        is_press_release_break = False
-        press_release_list = []
-        agency_id = None
-        notice_id = None
+        go_ahead_flag = True        
+        press_release_list = []        
         last_scraped_date = None
         
         try:
@@ -121,21 +118,7 @@ class scanning_notice:
 
                     
 
-                    """
-                    Uncomment the below line once you have scraped all the data and latter
-                    you want scrap for a certain date without duplicates.
-                    """
-                    # if press_release_date < record_date + timedelta(days=-10):
-                    #     print("published date is less than 10 days:", str(press_release_date))
-                    #     print("Record Date:", str(record_date + timedelta(days=-10)))
-                    #     is_press_release_break = True
-                    #     break
-
-                    # """
-                    # after first time scrapping
-                    # """
-                    # if is_press_release_break:
-                    #     break
+                   
 
                     """ 
                     Extracting the news category for insuring into the database
@@ -154,7 +137,6 @@ class scanning_notice:
                 page_no = page_no + 1
                 break
             
-        except Exception as ex:
-            
-            new_value = {'error': str(ex), 'status': "Failed"}
+        except Exception as ex:            
+            print(ex)
         return  {"esma_press_release":press_release_list}
