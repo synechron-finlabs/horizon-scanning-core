@@ -34,10 +34,15 @@ TBD
 TBD
 
 ## Roadmap
-| Version | Features | Status |
-| ------ | ------ | ------ | 
-| 1.0 | Synechron's Horizon scanning tool currently supports regulatory data collection for FINRA, ESMA, FCA, CSSF and SEZ | Active |
-| 1.1 | Synechron's Horizon scanning tool will add regulatory data for MAS | Future Release |
+In it's current version, Horizon Scanning tool supports below mentioned agencies and its corrosponding topics. The roadmap will be constantly updated based on initial planning & requests from the community. 
+
+| Version | Agencies | Topics | Status |
+| ------ | ------ | ------ | ------ | 
+| 1.0 | FINRA | Notices, Rules & News Feeds| Active |
+| 1.0 | ESMA  | News, Consultation & Press Release | Active |
+| 1.0 | PRA | News, Publications & Prudential Regulations| Active |
+| 1.1 | SEC | Press Release, Proposed Rules & Administrative Proceedings | Next-Release |
+| 1.1 | CSSF | Publications | Next-Release |
 
 ## Contributing
 TBD

@@ -17,8 +17,6 @@ class scanning_notice:
         
         try:
             data_list = []
-            # print(col_name)
-            
             last_scan_date=obj_com.extract_month_date(no_month)
             rss_data_list = obj_com.fetch_rss(url)
             

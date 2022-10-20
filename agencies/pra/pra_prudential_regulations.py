@@ -17,8 +17,6 @@ class scanning_notice:
         
         try:
             data_list = []
-            # print(col_name)
-            
             last_scan_date=obj_com.extract_month_date(no_month)
             rss_data_list = obj_com.fetch_rss(url)
             
@@ -46,14 +44,7 @@ class scanning_notice:
                 
             
         except Exception as ex:
-
-            
-            
-
-            
-            print('Inside pra Exception')
-
-        return {"pra_prudential_regulations":data_list}
+            return {"pra_prudential_regulations":data_list}
             
 
 
