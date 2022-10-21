@@ -5,23 +5,23 @@ from datetime import timedelta, datetime
 import uuid
 from services.common_services import common_functions
 obj_com = common_functions()
-
+import services.log as log
+custom_logger = log.get_logger(__name__)
 
 class scanning_notice:
 
 
     def __init__(self):
-        pass
+        self.notice_name= "pra_publications"
     
     def start_scanning(self, url,no_month):
         
         try:
             data_list = []
+            custom_logger.info("Scanning {}.".format(self.notice_name))
+
             last_scan_date=obj_com.extract_month_date(no_month)
             rss_data_list = obj_com.fetch_rss(url)
-            
-            
-            
 
             for rss_data in rss_data_list:
                 topic_data = {}
@@ -43,17 +43,17 @@ class scanning_notice:
                 data_list.append(topic_data)
                 
             
-        except Exception as ex:            
-            print(ex)
-
-        return {"pra_publications":data_list}
+        except Exception as ex:
+            custom_logger.error("Error while Scanning {}, Error {} .".format(self.notice_name,ex))
+        return {self.notice_name:data_list}
             
 
-
-
     def fetch_details(self, url):
+        data = []
         try:
             html_content = requests.get(url).text
+
+            html_content=obj_com.remove_img_tags(html_content)
             Bsoup = BeautifulSoup(html_content, "lxml")
             main_content = Bsoup.find('main', {"id": "main-content"})
             container_nav = main_content.find('div', {"class": "container container-has-navigation"})
@@ -62,15 +62,16 @@ class scanning_notice:
                 data = container_nav.find('div', {"class": "content-block"})
                 data = str(data)
             else:
-                data = []
+                
                 column_data = main_content.find_all('div', {"class": "content-block"})
                 for col in column_data:
                     data.append(str(col))
                 data = "".join(data)
                 data = str(BeautifulSoup(data, "lxml"))
-            return data,[]
-        except Exception as e:
-
-            return "",[]
+            
+        except Exception as ex:
+            custom_logger.error("Error while Scanning Details {}, Error {} .".format(self.notice_name,ex))
+            
+        return data,[]
 
 

@@ -4,26 +4,31 @@ from bs4 import BeautifulSoup
 from datetime import timedelta, datetime
 import uuid
 from agencies.esma import config
-
+from services.common_services import common_functions
+import services.log as log
+custom_logger = log.get_logger(__name__)
+obj_com = common_functions()
 
 
 class scanning_notice:
 
 
     def __init__(self):
-        pass
+        self.notice_name= "esma_news"
 
-    def start_scanning(self, page_url):
+    def start_scanning(self, page_url,no_month):
         page_no = 0
         today = date.today()
         go_ahead_flag = True
-        is_published_break = False
+        is_main_break = False
         news = []
-       
+        last_scan_date=obj_com.extract_month_date(no_month)
         news_list=[]
-
+        custom_logger.info("Scanning {}.".format(self.notice_name))
         try:
             while True:
+                if is_main_break == True:
+                        break
                 if page_no < 1:
                     url = page_url
                 else:
@@ -62,30 +67,21 @@ class scanning_notice:
                 """
                 esma_news_date=""
                 for tr in rows:
-                    cols = tr.findAll('td')
-                    if go_ahead_flag == False:
+                    if is_main_break == True:
                         break
+                    cols = tr.findAll('td')
+
                     for col in cols:
                         if col.find("div", attrs={"field field-type-ds"}) is not None:
                             news_date = col.find("div", attrs={"field field-type-ds"}).text.strip()
                             esma_news_date = datetime.strptime(news_date, '%d %B %Y').date()
                             #esma_news_date = datetime.strptime(str(esma_news_date, '%d-%m-%Y').date())
-                        
-                        """
-                        Uncomment the below line once you have scraped all the data and latter
-                        you want scrap for a certain date without duplicates.
-                        """
-                        # if esma_news_date < record_date + timedelta(days=-10):
-                        #     print("published date is less than 10 days:", str(esma_news_date))
-                        #     print("Record Date:", str(record_date + timedelta(days=-10)))
-                        #     is_published_break = True
-                        #     break
 
-                        # """
-                        # after first time scrapping
-                        # """
-                        # if is_published_break:
-                        #     break
+                        if str(esma_news_date) < last_scan_date:
+                            is_main_break=True
+                            break
+                        
+                                  
 
                         """ 
                         news title and link
@@ -94,9 +90,9 @@ class scanning_notice:
                         link=""
                         if col.find('a') is not None:
                             title = col.find('a').text.strip()
-                            print("Title ESMA News Category : ", title)
+                            
 
-                            link = "https://www.esma.europa.eu" + col.find('a').get('href')
+                            link = config.esma_url + col.find('a').get('href')
 
                         """ 
                         Extracting the news content or summary 
@@ -153,8 +149,8 @@ class scanning_notice:
                         }                        
                         news_list.append(news_dict)
                 page_no = page_no + 1
-                break
+                
            
         except Exception as ex:
-            print(ex)
-        return {"esma_news":news_list}
+            custom_logger.error("Error while Scanning {}, Error {} .".format(self.notice_name,ex))
+        return {self.notice_name:news_list}

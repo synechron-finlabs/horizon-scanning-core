@@ -7,20 +7,21 @@ from agencies.pra import config
 import uuid
 
 import importlib
-
+import services.log as log
+custom_logger = log.get_logger(__name__)
 class scanning_engine:
     def __init__(self):
-        pass
-    #temprory function only for demo
+        self.agency_name="PRA"
+    
     def start_scanning(self,no_month):
-        print("Scanning started for PRA")
+        custom_logger.info("Scanning started for {}.".format(self.agency_name))
         data=[]
 
         url_list=config.pra
 
         try :
             for url in url_list:                
-                
+                custom_logger.info("Scanning Started for {}.".format(url))
                 module_name = "agencies.{}.{}".format("pra",url)
                 module = importlib.import_module(module_name)
                 
@@ -28,14 +29,14 @@ class scanning_engine:
                 result=obj_module.start_scanning(url_list[url],no_month)
                 
                 data.append(result)
-                print("Done {}".format(url))
+                custom_logger.info("Scanning Finished for {}.".format(url))
              
-        except exception as ex:
+        except Exception as ex:
+            custom_logger.error("Error while scanning {} , {}.".format(self.agency_name,ex))
             
-            print(ex)
             
-        #print(data)
-        return {"pra":data}
+   
+        return {self.agency_name:data}
 
 
    

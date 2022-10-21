@@ -6,17 +6,18 @@ from datetime import timedelta, datetime
 import uuid
 from agencies.esma import config
 import importlib
-
+import services.log as log
+custom_logger = log.get_logger(__name__)
 
 
 class scanning_engine:
     def __init__(self):
-        pass
+        self.agency_name="ESMA"
 
 
-    #temprory function only for demo
+    
     def start_scanning(self,no_month):
-        print("Scanning started for ESMA")
+        custom_logger.info("Scanning started for {}.".format(self.agency_name))
         
         data=[]
 
@@ -24,20 +25,20 @@ class scanning_engine:
 
         try :
             for url in url_list:
-                
+                custom_logger.info("Scanning Started for {}.".format(url))
                 module_name = "agencies.{}.{}".format("esma",url)
                 module = importlib.import_module(module_name)
                 
                 obj_module = getattr(module, 'scanning_notice')()
-                result=obj_module.start_scanning(url_list[url])
+                result=obj_module.start_scanning(url_list[url],no_month)
                 
                 data.append(result)
-                print("Done {}".format(url))
+                custom_logger.info("Scanning Finished for {}.".format(url))
              
         except exception as ex:
             
-            print(ex)
+            custom_logger.error("Error while scanning {} , {}.".format(self.agency_name,ex))
             
-        #print(data)
-        return {"esma":data}
+        custom_logger.info("Scanning Finished for {}.".format(self.agency_name))
+        return {self.agency_name:data}
 

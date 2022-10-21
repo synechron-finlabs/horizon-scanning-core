@@ -4,41 +4,41 @@ from bs4 import BeautifulSoup
 from datetime import timedelta, datetime
 import uuid
 from agencies.esma import config
-
+from services.common_services import common_functions
+import services.log as log
+custom_logger = log.get_logger(__name__)
+obj_com = common_functions()
 
 
 class scanning_notice:
 
 
     def __init__(self):
-        pass
+        self.notice_name= "esma_consultation"
         
-    def start_scanning(self, page_url):
+    def start_scanning(self, page_url,no_month):
         page_no = 0
         go_ahead_flag = True
         today = datetime.today()
-        is_consultation_break = False
+        last_scan_date=obj_com.extract_month_date(no_month)
         consultation_list = []
-
-        new_value = {'error':"",'status': "Running"}
+        is_main_break = False
+        custom_logger.info("Scanning {}.".format(self.notice_name))
        
         try:
             while True:
-                url = page_url + str(page_no)
-                html_content = requests.get(url).text
-                soup = BeautifulSoup(html_content, "lxml")
-
-
-                if go_ahead_flag == False:
+                if is_main_break == True:
                     # print("older News")
                     break
-
+                url = page_url + str(page_no)
+                
+                html_content = requests.get(url).text
+                soup = BeautifulSoup(html_content, "lxml")
+                
                 """ 
                 if you want braking the loop, uncomment the below line 
                 """
-                # if page_no > 0:
-                #     break
-
+              
                 """
                 define the scraping date
                 """
@@ -78,13 +78,18 @@ class scanning_notice:
                     start_date = datetime.strptime(
                         start_date, '%d-%m-%Y').date()
                     end_date = datetime.strptime(end_date, '%d-%m-%Y').date()
+                    
+                    if str(start_date) < last_scan_date:
+                        is_main_break=True
+                        break
+
 
                     title = cols[1].text.strip()
 
                     """
                     consultation link
                     """
-                    link = "https://www.esma.europa.eu" + \
+                    link = config.esma_url + \
                         cols[1].find('a').get('href')
                     if link is None:
                         link = ""
@@ -148,8 +153,8 @@ class scanning_notice:
                     
 
                 page_no = page_no + 1
-                break
+                
         except Exception as ex:
             
-            print(ex)
-        return {"esma_consultation":consultation_list}
+            custom_logger.error("Error while Scanning {}, Error {} .".format(self.notice_name,ex))
+        return {self.notice_name:consultation_list}

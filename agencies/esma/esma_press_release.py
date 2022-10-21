@@ -4,34 +4,37 @@ from bs4 import BeautifulSoup
 from datetime import timedelta, datetime
 import uuid
 from agencies.esma import config
-
+from services.common_services import common_functions
+import services.log as log
+custom_logger = log.get_logger(__name__)
+obj_com = common_functions()
 
 class scanning_notice:
 
     def __init__(self):
-            pass
+            self.notice_name= "esma_press_release"
 
-    def start_scanning(self, page_url):
+    def start_scanning(self, page_url,no_month):
         page_no = 0
         go_ahead_flag = True        
-        press_release_list = []        
+        press_release_list = []
+        is_main_break=False        
         last_scraped_date = None
-        
+        last_scan_date=obj_com.extract_month_date(no_month)
+        custom_logger.info("Scanning {}.".format(self.notice_name))
         try:
             while True:
+                if is_main_break == True:                    
+                    break
                 url = page_url + str(page_no)
                 html_content = requests.get(url).text
                 soup = BeautifulSoup(html_content, "lxml")
 
-                if go_ahead_flag == False:
-                    print("older News")
-                    break
+                
 
                 """ 
                 if you want braking the loop, uncomment the below line 
                 """
-                # if page_no > 0:
-                #     break
 
                 """
                 define the scraping date
@@ -54,6 +57,8 @@ class scanning_notice:
                 Finding the consultation duration date along with Title 
                 """
                 for tr in rows:
+                    if is_main_break == True:                    
+                        break
                     if tr is None:
                         continue
                     str_tr = str(tr)
@@ -65,16 +70,13 @@ class scanning_notice:
                     news_date = datetime.strptime(date.split()[0], "%d/%m/%Y").strftime("%d-%m-%Y")
                     press_release_date = datetime.strptime(news_date, '%d-%m-%Y').date()
 
-                    if config.since_start == False:
+                    if str(press_release_date) < last_scan_date:
+                        is_main_break=True
+                        break
 
-                        if last_scraped_date is not None:
-
-                            if last_scraped_date.date() > press_release_date:
-                                go_ahead_flag=False
-                                break
 
                     title = cols[2].text.strip()
-                    print("Title ESMA Press Release Category :", title)
+                    
                     types = cols[4].text.strip()
 
                     """
@@ -135,8 +137,8 @@ class scanning_notice:
                     press_release_list.append(press_release_dict)
 
                 page_no = page_no + 1
-                break
+                
             
         except Exception as ex:            
-            print(ex)
-        return  {"esma_press_release":press_release_list}
+            custom_logger.error("Error while Scanning {}, Error {} .".format(self.notice_name,ex))
+        return  {self.notice_name:press_release_list}
