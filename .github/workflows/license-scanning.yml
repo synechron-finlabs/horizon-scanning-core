@@ -1,15 +1,15 @@
-name: License Reporting
+name: License Scanning
 
 on:
   push:
     paths:
       - 'requirements.txt'
-      - '.github/workflows/license-reporting.yml'
+      - '.github/workflows/license-scanning.yml'
 
 env:
   PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
-  IGNORE_LICENSES: "MIT License;Apache Software License;BSD License;Mozilla Public License 2.0 (MPL 2.0)"
-  # IGNORE_PACKAGES: "astroid;chardet;crytic-compile"
+  IGNORE_LICENSES: "MIT License;Apache Software License;BSD License"
+  # IGNORE_PACKAGES: ""
 
 jobs:
   scan:
