@@ -23,4 +23,4 @@ jobs:
       - name: Install pip-licenses
         run: pip3 install pip-licenses
       - name: Scan for licenses
-        run: pip-licenses --allow-only="{{ $IGNORE_LICENSES }}" # --ignore-packages="{{ $IGNORE_PACKAGES }}"
+        run: pip-licenses --allow-only="${{ env.IGNORE_LICENSES }}" # --ignore-packages="${{ env.IGNORE_PACKAGES }}"
