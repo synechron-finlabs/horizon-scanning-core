@@ -1,16 +1,16 @@
-# Horizon Scanning
-Horizon scanning is a library for automating collection of regulatory compliance data.
-Horizon scanning enables continuous subscriptions and data ingestion from prime regulatory agencies across operating geographies.
+# Compliance Horizon Scanning
+Compliance Horizon Scanning is a library for automating collection of regulatory compliance data.
+Compliance Horizon Scanning enables continuous subscriptions and data ingestion from prime regulatory agencies across operating geographies.
 
 ## What is it?
-Horizon scanning is NLP powered automated toolkit for continues ingestion, analysis and categorisation of new and fast changing publications from hundreads of agencies across the globe to keep companies and various business units within them up-to-date. 
+Compliance Horizon Scanning is NLP powered automated toolkit for continues ingestion, analysis and categorisation of new and fast changing publications from hundreads of agencies across the globe to keep companies and various business units within them up-to-date. 
 
 ## Why is it important?
 - Regulatory space is not static, they evolve over time.
 - Compliance teams need to keep up with a regulatory tsunami. Approximately 2500 COVID related regulatory updates published to date.
 - Regulatory and compliance teams spend a significant amount of time keeping up with regulatory changes and acting upon them.
 
-These challanges are not only common across investment and asset management firms but they're also critically important. Horizon scanning toolkit allows firms to automate the collection of pre-configured data and enrich it using custom NLP processes, so that your data is ready to be consumed at different level.  
+These challanges are not only common across investment and asset management firms but they're also critically important. Compliance Horizon Scanning toolkit allows firms to automate the collection of pre-configured data and enrich it using custom NLP processes, so that your data is ready to be consumed at different level.  
 
 ## How does it work?
 
@@ -50,7 +50,7 @@ These challanges are not only common across investment and asset management firm
 TBD
 
 ## Roadmap
-In it's current version, Horizon Scanning tool supports below mentioned agencies and its corrosponding topics. The roadmap will be constantly updated based on initial planning & requests from the community. 
+In it's current version, Compliance Horizon Scanning tool supports below mentioned agencies and its corrosponding topics. The roadmap will be constantly updated based on initial planning & requests from the community. 
 
 | Version | Agencies | Topics | Status |
 | ------ | ------ | ------ | ------ | 
