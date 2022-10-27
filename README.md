@@ -34,18 +34,16 @@ These challanges are not only common across investment and asset management firm
 1. Validate you've cloned latest version of the code and run following commands with appropriate arguments
 2. All arguments are optional
 3. python main.py --agency --output --month
-    - --agency argument accepts name of the agency for which you need data or you can also use value "all" for obtaining data from all supported agencies. You can check Roadmap section to valdiate names of agencies supported. 
-    - --output argument accepts name of the file in which resultant data will be stored. The file format HAS to be JSON
-    - --months accepts number of months for which you need data. 
-4. Examples :- 
-    - python main.py --agency esma --output result.json
-    - Above command will extract data from ESMA agency for 1 month and store it in result.json file.
-    - 4.2 python main.py --agency finra --month 12
-    - Above command will extract data from FINRA agency for 12 months and store it in agency.json file. 
-    - 4.3 python main.py
-    - Above command will extract data from ALL supported agency for 1 month and store it in agency.json file. 
+    - "--agency" argument accepts name of the agency for which you need data or you can also use value "all" for obtaining data from all supported agencies. You can check Roadmap section to valdiate names of agencies supported. 
+    - "--output" argument accepts name of the file in which resultant data will be stored. The file format HAS to be JSON
+    - "--months" accepts number of months for which you need data. 
+4. Examples:- 
+    | Command | Interpretation |
+    | ------ | ------ |
+    | python main.py --agency esma --output result.json | This command will extract data from ESMA agency for 1 month and store it in result.json file. |
+    | python main.py --agency finra --month 12 | This command will extract data from FINRA agency for 12 months and store it in agency.json file. |
+    | python main.py | This command will extract data from ALL supported agency for 1 month and store it in agency.json file. |
     
-
 ## Support
 TBD
 
