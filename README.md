@@ -25,10 +25,26 @@ These challanges are not only common across investment and asset management firm
 
 
 ## Development setup
-TBD
+1. The code has been built and tested on Python version 3.7
+2. Clone the repository
+3. Create Python enviornment with version 3.7
+4. Install required libraries using requirement.text file
 
 ## Usage Example
-TBD
+1. Validate you've cloned latest version of the code and run following commands with appropriate arguments
+2. All arguments are optional
+3. python main.py --agency --output --month
+    3.1 --agency argument accepts name of the agency for which you need data or you can also use value "all" for obtaining data from all supported agencies. You can check Roadmap section to valdiate names of agencies supported. 
+    3.2 --output argument accepts name of the file in which resultant data will be stored. The file format HAS to be JSON
+    3.3 --months accepts number of months for which you need data. 
+4. Examples :- 
+    4.1 python main.py --agency esma --output result.json
+    This command will extract data from ESMA agency for 1 month and store it in result.json file.
+    4.2 python main.py --agency finra --month 12
+    This command will extract data from FINRA agency for 12 months and store it in agency.json file. 
+    4.3 python main.py
+    This command will extract data from ALL supported agency for 1 month and store it in agency.json file. 
+    
 
 ## Support
 TBD
@@ -45,7 +61,14 @@ In it's current version, Horizon Scanning tool supports below mentioned agencies
 | 1.1 | CSSF | Publications | Next-Release |
 
 ## Contributing
-TBD
+1. Fork it (https://github.com/yourname/yourproject/fork)
+2. Create your feature branch (git checkout -b feature/fooBar)
+3. Read our contribution guidelines and Community Code of Conduct
+4. Commit your changes (git commit -am 'Add some fooBar')
+5. Push to the branch (git push origin feature/fooBar)
+6. Create a new Pull Request
+
+NOTE: Commits and pull requests to FINOS repositories will only be accepted from those contributors with an active, executed Individual Contributor License Agreement (ICLA) with FINOS OR who are covered under an existing and active Corporate Contribution License Agreement (CCLA) executed with FINOS. Commits from individuals not covered under an ICLA or CCLA will be flagged and blocked by the FINOS Clabot tool. Please note that some CCLAs require individuals/employees to be explicitly named on the CCLA.
 
 ## Authors and acknowledgment
 TBD
