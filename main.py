@@ -47,6 +47,7 @@ def start():
             for item in agency_list:
                 
                 module_name = "agencies.{}.{}".format(item,item)
+                # nosemgrep                
                 module = importlib.import_module(module_name)
                 obj_module = getattr(module, 'scanning_engine')()
                 results.append(obj_module.start_scanning(no_month))

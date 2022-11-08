@@ -26,7 +26,9 @@ class scanning_engine:
         try :
             for url in url_list:
                 custom_logger.info("Scanning Started for {}.".format(url))
+                
                 module_name = "agencies.{}.{}".format("esma",url)
+                # nosemgrep
                 module = importlib.import_module(module_name)
                 
                 obj_module = getattr(module, 'scanning_notice')()

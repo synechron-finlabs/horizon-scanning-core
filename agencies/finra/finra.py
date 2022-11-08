@@ -25,6 +25,7 @@ class scanning_engine:
                 
                 custom_logger.info("Scanning Started for {}.".format(url))
                 module_name = "agencies.{}.{}".format("finra",url)
+                # nosemgrep
                 module = importlib.import_module(module_name)
                 
                 obj_module = getattr(module, 'scanning_notice')()
